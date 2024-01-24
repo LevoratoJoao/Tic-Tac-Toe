@@ -151,11 +151,8 @@ def min_value(board):
         return utility(board)
     v = math.inf
     for action in actions(board):
-        print(f"A in min: {action[0]}, {action[1]}")
-        value = min(v, max_value(result(board, action)))
-        print(f"V in min: {value}")
-        if value < v:
-            v = value
+        v = min(v, max_value(result(board, action)))
+        print(f"V in min: {v}")
     return v
 
 def max_value(board):
@@ -163,11 +160,7 @@ def max_value(board):
         return utility(board)
     v = -math.inf
     for action in actions(board):
-        print(f"A in max: {action[0]}, {action[1]}")
-        value = max(v, min_value(result(board, action)))
-        print(f"V in max: {value}")
-        if value > v:
-            v = value
+        v = max(v, min_value(result(board, action)))
     return v
 
 def minimax(board):
@@ -177,6 +170,17 @@ def minimax(board):
     if terminal(board) == True:
         return None
     if player(board) == X:
-        return min_value(board)
+        v = -math.inf
+        for action in actions(board):
+            score = min_value(result(board, action))
+            if score > v:
+                v = score
+                ac = action
     else:
-        return min_value(board)
+        v = math.inf
+        for action in actions(board):
+            score = max_value(result(board, action))
+            if score < v:
+                v = score
+                ac = action
+    return ac
