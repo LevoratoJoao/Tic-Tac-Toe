@@ -63,35 +63,18 @@ def winner(board):
     oCount = 0
     # lines
     for i in range(3):
-        for j in range(3):
-            if board[i][j] == X:
-                xCount += 1
-            elif board[i][j] == O:
-                oCount += 1
-        # counters
-        if xCount == 3:
+        if board[i][0] == X and board[i][1] == X and board[i][2] == X:
             return X
-        elif oCount == 3:
+        elif board[i][0] == O and board[i][1] == O and board[i][2] == O:
             return O
-        else:
-            xCount = 0
-            oCount = 0
 
     # columns
     for i in range(3):
-        for j in range(3):
-            if board[j][i] == X:
-                xCount += 1
-            elif board[j][i] == O:
-                oCount += 1
-        # counters
-        if xCount == 3:
+        if board[0][i] == X and board[1][i] == X and board[2][i] == X:
             return X
-        elif oCount == 3:
+        elif board[0][i] == O and board[1][i] == O and board[2][i] == O:
             return O
-        else:
-            xCount = 0
-            oCount = 0
+
     # Main diagonal
     for i in range(3):
         for j in range(3):
@@ -152,7 +135,6 @@ def min_value(board):
     v = math.inf
     for action in actions(board):
         v = min(v, max_value(result(board, action)))
-        print(f"V in min: {v}")
     return v
 
 def max_value(board):
